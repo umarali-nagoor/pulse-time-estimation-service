@@ -1,0 +1,238 @@
+{
+    "format_version": "0.1",
+    "terraform_version": "0.12.7",
+    "planned_values": {
+        "root_module": {
+            "resources": [
+                {
+                    "address": "ibm_iam_authorization_policy.policy",
+                    "mode": "managed",
+                    "type": "ibm_iam_authorization_policy",
+                    "name": "policy",
+                    "provider_name": "ibm",
+                    "schema_version": 0,
+                    "values": {
+                        "roles": [
+                            "Reader"
+                        ],
+                        "source_resource_group_id": null,
+                        "source_resource_instance_id": null,
+                        "source_resource_type": null,
+                        "source_service_name": "cloud-object-storage",
+                        "target_resource_group_id": null,
+                        "target_resource_instance_id": null,
+                        "target_resource_type": null,
+                        "target_service_name": "kms"
+                    }
+                },
+                {
+                    "address": "ibm_iam_service_id.serviceID",
+                    "mode": "managed",
+                    "type": "ibm_iam_service_id",
+                    "name": "serviceID",
+                    "provider_name": "ibm",
+                    "schema_version": 0,
+                    "values": {
+                        "description": null,
+                        "name": "test",
+                        "tags": null
+                    }
+                },
+                {
+                    "address": "ibm_iam_service_policy.policy",
+                    "mode": "managed",
+                    "type": "ibm_iam_service_policy",
+                    "name": "policy",
+                    "provider_name": "ibm",
+                    "schema_version": 0,
+                    "values": {
+                        "account_management": false,
+                        "resources": [
+                            {
+                                "attributes": null,
+                                "region": null,
+                                "resource": null,
+                                "resource_group_id": null,
+                                "resource_instance_id": null,
+                                "resource_type": null,
+                                "service": "cloud-object-storage"
+                            }
+                        ],
+                        "roles": [
+                            "Viewer"
+                        ],
+                        "tags": null
+                    }
+                }
+            ]
+        }
+    },
+    "resource_changes": [
+        {
+            "address": "ibm_iam_authorization_policy.policy",
+            "mode": "managed",
+            "type": "ibm_iam_authorization_policy",
+            "name": "policy",
+            "provider_name": "ibm",
+            "change": {
+                "actions": [
+                    "create"
+                ],
+                "before": null,
+                "after": {
+                    "roles": [
+                        "Reader"
+                    ],
+                    "source_resource_group_id": null,
+                    "source_resource_instance_id": null,
+                    "source_resource_type": null,
+                    "source_service_name": "cloud-object-storage",
+                    "target_resource_group_id": null,
+                    "target_resource_instance_id": null,
+                    "target_resource_type": null,
+                    "target_service_name": "kms"
+                },
+                "after_unknown": {
+                    "id": true,
+                    "roles": [
+                        false
+                    ],
+                    "source_service_account": true,
+                    "version": true
+                }
+            }
+        },
+        {
+            "address": "ibm_iam_service_id.serviceID",
+            "mode": "managed",
+            "type": "ibm_iam_service_id",
+            "name": "serviceID",
+            "provider_name": "ibm",
+            "change": {
+                "actions": [
+                    "create"
+                ],
+                "before": null,
+                "after": {
+                    "description": null,
+                    "name": "test",
+                    "tags": null
+                },
+                "after_unknown": {
+                    "crn": true,
+                    "id": true,
+                    "version": true
+                }
+            }
+        },
+        {
+            "address": "ibm_iam_service_policy.policy",
+            "mode": "managed",
+            "type": "ibm_iam_service_policy",
+            "name": "policy",
+            "provider_name": "ibm",
+            "change": {
+                "actions": [
+                    "create"
+                ],
+                "before": null,
+                "after": {
+                    "account_management": false,
+                    "resources": [
+                        {
+                            "attributes": null,
+                            "region": null,
+                            "resource": null,
+                            "resource_group_id": null,
+                            "resource_instance_id": null,
+                            "resource_type": null,
+                            "service": "cloud-object-storage"
+                        }
+                    ],
+                    "roles": [
+                        "Viewer"
+                    ],
+                    "tags": null
+                },
+                "after_unknown": {
+                    "iam_service_id": true,
+                    "id": true,
+                    "resources": [
+                        {}
+                    ],
+                    "roles": [
+                        false
+                    ],
+                    "version": true
+                }
+            }
+        }
+    ],
+    "configuration": {
+        "root_module": {
+            "resources": [
+                {
+                    "address": "ibm_iam_authorization_policy.policy",
+                    "mode": "managed",
+                    "type": "ibm_iam_authorization_policy",
+                    "name": "policy",
+                    "provider_config_key": "ibm",
+                    "expressions": {
+                        "roles": {
+                            "constant_value": [
+                                "Reader"
+                            ]
+                        },
+                        "source_service_name": {
+                            "constant_value": "cloud-object-storage"
+                        },
+                        "target_service_name": {
+                            "constant_value": "kms"
+                        }
+                    },
+                    "schema_version": 0
+                },
+                {
+                    "address": "ibm_iam_service_id.serviceID",
+                    "mode": "managed",
+                    "type": "ibm_iam_service_id",
+                    "name": "serviceID",
+                    "provider_config_key": "ibm",
+                    "expressions": {
+                        "name": {
+                            "constant_value": "test"
+                        }
+                    },
+                    "schema_version": 0
+                },
+                {
+                    "address": "ibm_iam_service_policy.policy",
+                    "mode": "managed",
+                    "type": "ibm_iam_service_policy",
+                    "name": "policy",
+                    "provider_config_key": "ibm",
+                    "expressions": {
+                        "iam_service_id": {
+                            "references": [
+                                "ibm_iam_service_id.serviceID"
+                            ]
+                        },
+                        "resources": [
+                            {
+                                "service": {
+                                    "constant_value": "cloud-object-storage"
+                                }
+                            }
+                        ],
+                        "roles": {
+                            "constant_value": [
+                                "Viewer"
+                            ]
+                        }
+                    },
+                    "schema_version": 0
+                }
+            ]
+        }
+    }
+}

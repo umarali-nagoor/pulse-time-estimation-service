@@ -1,0 +1,220 @@
+{
+    "format_version": "0.1",
+    "terraform_version": "0.12.7",
+    "planned_values": {
+        "root_module": {
+            "resources": [
+                {
+                    "address": "ibm_cos_bucket.standard-ams03",
+                    "mode": "managed",
+                    "type": "ibm_cos_bucket",
+                    "name": "standard-ams03",
+                    "provider_name": "ibm",
+                    "schema_version": 0,
+                    "values": {
+                        "activity_tracking": [],
+                        "allowed_ip": null,
+                        "bucket_name": "testbucket",
+                        "cross_region_location": "us",
+                        "key_protect": null,
+                        "metrics_monitoring": [],
+                        "region_location": null,
+                        "resource_instance_id": "123",
+                        "single_site_location": null,
+                        "storage_class": "standard",
+                        "timeouts": null
+                    }
+                },
+                {
+                    "address": "ibm_iam_authorization_policy.policy",
+                    "mode": "managed",
+                    "type": "ibm_iam_authorization_policy",
+                    "name": "policy",
+                    "provider_name": "ibm",
+                    "schema_version": 0,
+                    "values": {
+                        "roles": [
+                            "Reader"
+                        ],
+                        "source_resource_group_id": null,
+                        "source_resource_instance_id": null,
+                        "source_resource_type": null,
+                        "source_service_name": "cloud-object-storage",
+                        "target_resource_group_id": null,
+                        "target_resource_instance_id": null,
+                        "target_resource_type": null,
+                        "target_service_name": "kms"
+                    }
+                },
+                {
+                    "address": "ibm_iam_service_id.serviceID",
+                    "mode": "managed",
+                    "type": "ibm_iam_service_id",
+                    "name": "serviceID",
+                    "provider_name": "ibm",
+                    "schema_version": 0,
+                    "values": {
+                        "description": null,
+                        "name": "test",
+                        "tags": null
+                    }
+                }
+            ]
+        }
+    },
+    "resource_changes": [
+        {
+            "address": "ibm_cos_bucket.standard-ams03",
+            "mode": "managed",
+            "type": "ibm_cos_bucket",
+            "name": "standard-ams03",
+            "provider_name": "ibm",
+            "change": {
+                "actions": [
+                    "create"
+                ],
+                "before": null,
+                "after": {
+                    "activity_tracking": [],
+                    "allowed_ip": null,
+                    "bucket_name": "testbucket",
+                    "cross_region_location": "us",
+                    "key_protect": null,
+                    "metrics_monitoring": [],
+                    "region_location": null,
+                    "resource_instance_id": "123",
+                    "single_site_location": null,
+                    "storage_class": "standard",
+                    "timeouts": null
+                },
+                "after_unknown": {
+                    "activity_tracking": [],
+                    "crn": true,
+                    "id": true,
+                    "metrics_monitoring": [],
+                    "s3_endpoint_private": true,
+                    "s3_endpoint_public": true
+                }
+            }
+        },
+        {
+            "address": "ibm_iam_authorization_policy.policy",
+            "mode": "managed",
+            "type": "ibm_iam_authorization_policy",
+            "name": "policy",
+            "provider_name": "ibm",
+            "change": {
+                "actions": [
+                    "create"
+                ],
+                "before": null,
+                "after": {
+                    "roles": [
+                        "Reader"
+                    ],
+                    "source_resource_group_id": null,
+                    "source_resource_instance_id": null,
+                    "source_resource_type": null,
+                    "source_service_name": "cloud-object-storage",
+                    "target_resource_group_id": null,
+                    "target_resource_instance_id": null,
+                    "target_resource_type": null,
+                    "target_service_name": "kms"
+                },
+                "after_unknown": {
+                    "id": true,
+                    "roles": [
+                        false
+                    ],
+                    "source_service_account": true,
+                    "version": true
+                }
+            }
+        },
+        {
+            "address": "ibm_iam_service_id.serviceID",
+            "mode": "managed",
+            "type": "ibm_iam_service_id",
+            "name": "serviceID",
+            "provider_name": "ibm",
+            "change": {
+                "actions": [
+                    "create"
+                ],
+                "before": null,
+                "after": {
+                    "description": null,
+                    "name": "test",
+                    "tags": null
+                },
+                "after_unknown": {
+                    "crn": true,
+                    "id": true,
+                    "version": true
+                }
+            }
+        }
+    ],
+    "configuration": {
+        "root_module": {
+            "resources": [
+                {
+                    "address": "ibm_cos_bucket.standard-ams03",
+                    "mode": "managed",
+                    "type": "ibm_cos_bucket",
+                    "name": "standard-ams03",
+                    "provider_config_key": "ibm",
+                    "expressions": {
+                        "bucket_name": {
+                            "constant_value": "testbucket"
+                        },
+                        "cross_region_location": {
+                            "constant_value": "us"
+                        },
+                        "resource_instance_id": {
+                            "constant_value": "123"
+                        },
+                        "storage_class": {
+                            "constant_value": "standard"
+                        }
+                    },
+                    "schema_version": 0
+                },
+                {
+                    "address": "ibm_iam_authorization_policy.policy",
+                    "mode": "managed",
+                    "type": "ibm_iam_authorization_policy",
+                    "name": "policy",
+                    "provider_config_key": "ibm",
+                    "expressions": {
+                        "roles": {
+                            "constant_value": [
+                                "Reader"
+                            ]
+                        },
+                        "source_service_name": {
+                            "constant_value": "cloud-object-storage"
+                        },
+                        "target_service_name": {
+                            "constant_value": "kms"
+                        }
+                    },
+                    "schema_version": 0
+                },
+                {
+                    "address": "ibm_iam_service_id.serviceID",
+                    "mode": "managed",
+                    "type": "ibm_iam_service_id",
+                    "name": "serviceID",
+                    "provider_config_key": "ibm",
+                    "expressions": {
+                        "name": {
+                            "constant_value": "test"
+                        }
+                    },
+                    "schema_version": 0
+                }
+            ]
+        }
+    }
+}

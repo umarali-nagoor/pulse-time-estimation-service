@@ -1,0 +1,170 @@
+{
+    "format_version": "0.1",
+    "terraform_version": "0.13.5",
+    "planned_values": {
+        "root_module": {
+            "resources": [
+                {
+                    "address": "ibm_resource_instance.instance2",
+                    "mode": "managed",
+                    "type": "ibm_resource_instance",
+                    "name": "instance2",
+                    "provider_name": "registry.terraform.io/ibm-cloud/ibm",
+                    "schema_version": 0,
+                    "values": {
+                        "location": "us-east",
+                        "name": "cos1",
+                        "parameters": null,
+                        "plan": "standard",
+                        "resource_group_id": "19e34037c9fe41e5aa9d682c9089b044",
+                        "service": "cloud-object-storage",
+                        "timeouts": null
+                    }
+                }
+            ]
+        }
+    },
+    "resource_changes": [
+        {
+            "address": "ibm_resource_instance.instance2",
+            "mode": "managed",
+            "type": "ibm_resource_instance",
+            "name": "instance2",
+            "provider_name": "registry.terraform.io/ibm-cloud/ibm",
+            "change": {
+                "actions": [
+                    "create"
+                ],
+                "before": null,
+                "after": {
+                    "location": "us-east",
+                    "name": "cos1",
+                    "parameters": null,
+                    "plan": "standard",
+                    "resource_group_id": "19e34037c9fe41e5aa9d682c9089b044",
+                    "service": "cloud-object-storage",
+                    "timeouts": null
+                },
+                "after_unknown": {
+                    "account_id": true,
+                    "allow_cleanup": true,
+                    "created_at": true,
+                    "created_by": true,
+                    "crn": true,
+                    "dashboard_url": true,
+                    "deleted_at": true,
+                    "deleted_by": true,
+                    "extensions": true,
+                    "guid": true,
+                    "id": true,
+                    "last_operation": true,
+                    "locked": true,
+                    "plan_history": true,
+                    "resource_aliases_url": true,
+                    "resource_bindings_url": true,
+                    "resource_controller_url": true,
+                    "resource_crn": true,
+                    "resource_group_crn": true,
+                    "resource_group_name": true,
+                    "resource_id": true,
+                    "resource_keys_url": true,
+                    "resource_name": true,
+                    "resource_plan_id": true,
+                    "resource_status": true,
+                    "restored_at": true,
+                    "restored_by": true,
+                    "scheduled_reclaim_at": true,
+                    "scheduled_reclaim_by": true,
+                    "service_endpoints": true,
+                    "state": true,
+                    "status": true,
+                    "sub_type": true,
+                    "tags": true,
+                    "target_crn": true,
+                    "type": true,
+                    "update_at": true,
+                    "update_by": true
+                }
+            }
+        }
+    ],
+    "prior_state": {
+        "format_version": "0.1",
+        "terraform_version": "0.13.5",
+        "values": {
+            "root_module": {
+                "resources": [
+                    {
+                        "address": "data.ibm_resource_group.cos_group",
+                        "mode": "data",
+                        "type": "ibm_resource_group",
+                        "name": "cos_group",
+                        "provider_name": "registry.terraform.io/ibm-cloud/ibm",
+                        "schema_version": 0,
+                        "values": {
+                            "account_id": "fcdb764102154c7ea8e1b79d3a64afe0",
+                            "created_at": "2019-09-20T10:59:30.455Z",
+                            "crn": "crn:v1:bluemix:public:resource-controller::a/fcdb764102154c7ea8e1b79d3a64afe0::resource-group:19e34037c9fe41e5aa9d682c9089b044",
+                            "id": "19e34037c9fe41e5aa9d682c9089b044",
+                            "is_default": true,
+                            "name": "Default",
+                            "payment_methods_url": "/v2/resource_groups/19e34037c9fe41e5aa9d682c9089b044/payment_methods",
+                            "quota_id": "a3d7b8d01e261c24677937c29ab33f3c",
+                            "quota_url": "/v2/quota_definitions/a3d7b8d01e261c24677937c29ab33f3c",
+                            "resource_linkages": [],
+                            "state": "ACTIVE",
+                            "teams_url": "/v2/resource_groups/19e34037c9fe41e5aa9d682c9089b044/teams",
+                            "updated_at": "2021-01-08T21:05:26.618Z"
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    "configuration": {
+        "root_module": {
+            "resources": [
+                {
+                    "address": "ibm_resource_instance.instance2",
+                    "mode": "managed",
+                    "type": "ibm_resource_instance",
+                    "name": "instance2",
+                    "provider_config_key": "ibm",
+                    "expressions": {
+                        "location": {
+                            "constant_value": "us-east"
+                        },
+                        "name": {
+                            "constant_value": "cos1"
+                        },
+                        "plan": {
+                            "constant_value": "standard"
+                        },
+                        "resource_group_id": {
+                            "references": [
+                                "data.ibm_resource_group.cos_group"
+                            ]
+                        },
+                        "service": {
+                            "constant_value": "cloud-object-storage"
+                        }
+                    },
+                    "schema_version": 0
+                },
+                {
+                    "address": "data.ibm_resource_group.cos_group",
+                    "mode": "data",
+                    "type": "ibm_resource_group",
+                    "name": "cos_group",
+                    "provider_config_key": "ibm",
+                    "expressions": {
+                        "is_default": {
+                            "constant_value": true
+                        }
+                    },
+                    "schema_version": 0
+                }
+            ]
+        }
+    }
+}

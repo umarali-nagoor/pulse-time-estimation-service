@@ -1,0 +1,138 @@
+{
+    "format_version": "0.1",
+    "terraform_version": "0.12.7",
+    "planned_values": {
+        "root_module": {
+            "resources": [
+                {
+                    "address": "ibm_is_security_group.testacc_security_group",
+                    "mode": "managed",
+                    "type": "ibm_is_security_group",
+                    "name": "testacc_security_group",
+                    "provider_name": "ibm",
+                    "schema_version": 0,
+                    "values": {
+                        "name": "mysg-2"
+                    }
+                },
+                {
+                    "address": "ibm_is_vpc.testacc_vpc",
+                    "mode": "managed",
+                    "type": "ibm_is_vpc",
+                    "name": "testacc_vpc",
+                    "provider_name": "ibm",
+                    "schema_version": 0,
+                    "values": {
+                        "address_prefix_management": "auto",
+                        "classic_access": false,
+                        "is_default": null,
+                        "name": "myvpc-2",
+                        "timeouts": null
+                    }
+                }
+            ]
+        }
+    },
+    "resource_changes": [
+        {
+            "address": "ibm_is_security_group.testacc_security_group",
+            "mode": "managed",
+            "type": "ibm_is_security_group",
+            "name": "testacc_security_group",
+            "provider_name": "ibm",
+            "change": {
+                "actions": [
+                    "create"
+                ],
+                "before": null,
+                "after": {
+                    "name": "mysg-2"
+                },
+                "after_unknown": {
+                    "id": true,
+                    "resource_controller_url": true,
+                    "resource_crn": true,
+                    "resource_group": true,
+                    "resource_group_name": true,
+                    "resource_name": true,
+                    "rules": true,
+                    "vpc": true
+                }
+            }
+        },
+        {
+            "address": "ibm_is_vpc.testacc_vpc",
+            "mode": "managed",
+            "type": "ibm_is_vpc",
+            "name": "testacc_vpc",
+            "provider_name": "ibm",
+            "change": {
+                "actions": [
+                    "create"
+                ],
+                "before": null,
+                "after": {
+                    "address_prefix_management": "auto",
+                    "classic_access": false,
+                    "is_default": null,
+                    "name": "myvpc-2",
+                    "timeouts": null
+                },
+                "after_unknown": {
+                    "crn": true,
+                    "cse_source_addresses": true,
+                    "default_network_acl": true,
+                    "default_security_group": true,
+                    "id": true,
+                    "resource_controller_url": true,
+                    "resource_crn": true,
+                    "resource_group": true,
+                    "resource_group_name": true,
+                    "resource_name": true,
+                    "resource_status": true,
+                    "status": true,
+                    "subnets": true,
+                    "tags": true
+                }
+            }
+        }
+    ],
+    "configuration": {
+        "root_module": {
+            "resources": [
+                {
+                    "address": "ibm_is_security_group.testacc_security_group",
+                    "mode": "managed",
+                    "type": "ibm_is_security_group",
+                    "name": "testacc_security_group",
+                    "provider_config_key": "ibm",
+                    "expressions": {
+                        "name": {
+                            "constant_value": "mysg-2"
+                        },
+                        "vpc": {
+                            "references": [
+                                "ibm_is_vpc.testacc_vpc"
+                            ]
+                        }
+                    },
+                    "schema_version": 0
+                },
+                {
+                    "address": "ibm_is_vpc.testacc_vpc",
+                    "mode": "managed",
+                    "type": "ibm_is_vpc",
+                    "name": "testacc_vpc",
+                    "provider_config_key": "ibm",
+                    "expressions": {
+                        "name": {
+                            "constant_value": "myvpc-2"
+                        }
+                    },
+                    "schema_version": 0
+                }
+            ]
+        }
+    }
+}
+
