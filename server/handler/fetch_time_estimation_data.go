@@ -7,14 +7,14 @@ import (
 	"os"
 	"strconv"
 
+	"github.com/IBM-Cloud/pulse-time-estimation-service/helpers"
+	"github.com/IBM-Cloud/pulse-time-estimation-service/payload"
 	"github.com/gin-gonic/gin"
 	"github.com/kataras/tablewriter"
 	"github.com/landoop/tableprinter"
-	"github.com/IBM-Cloud/pulse-time-estimation-service/helpers"
-	"github.com/IBM-Cloud/pulse-time-estimation-service/payload"
 )
 
-//GetTimeEstimationData ...
+// GetTimeEstimationData ...
 func GetTimeEstimationData(c *gin.Context) {
 
 	fmt.Println("Inside GetTotalTimeEstimation")
@@ -25,68 +25,143 @@ func GetTimeEstimationData(c *gin.Context) {
 		fmt.Println("ERROR in converting jobID: ", id)
 	}
 
-	if jobinfo, exist := payload.JobInfoMap[jobID]; exist {
+	// if jobinfo, exist := payload.JobInfoMap[jobID]; exist {
 
-		totalTime := convertToMinutes(jobinfo.TotalTimeEstimation)
+	// 	totalTime := convertToMinutes(jobinfo.TotalTimeEstimation)
 
-		//Print Estimation details in table format
-		printer := tableprinter.New(os.Stdout)
+	// 	//Print Estimation details in table format
+	// 	printer := tableprinter.New(os.Stdout)
 
-		// Optionally, customize the table, import of the underline 'tablewriter' package is required for that.
-		printer.BorderTop, printer.BorderBottom, printer.BorderLeft, printer.BorderRight = true, true, true, true
-		printer.CenterSeparator = "│"
-		printer.ColumnSeparator = "│"
-		printer.RowSeparator = "─"
-		printer.HeaderBgColor = tablewriter.BgBlackColor
-		printer.HeaderFgColor = tablewriter.FgGreenColor
+	// 	// Optionally, customize the table, import of the underline 'tablewriter' package is required for that.
+	// 	printer.BorderTop, printer.BorderBottom, printer.BorderLeft, printer.BorderRight = true, true, true, true
+	// 	printer.CenterSeparator = "│"
+	// 	printer.ColumnSeparator = "│"
+	// 	printer.RowSeparator = "─"
+	// 	printer.HeaderBgColor = tablewriter.BgBlackColor
+	// 	printer.HeaderFgColor = tablewriter.FgGreenColor
 
-		printer.Print(helpers.GetTable(jobinfo.ResourceList))
-		fmt.Println("\nTotal Estimated Time: ", totalTime)
+	// 	printer.Print(helpers.GetTable(jobinfo.ResourceList))
+	// 	fmt.Println("\nTotal Estimated Time: ", totalTime)
 
-		resources := make([]payload.ResourceData, 0)
+	// 	resources := make([]payload.ResourceData, 0)
 
-		for _, resource := range jobinfo.ResourceList {
+	// 	for _, resource := range jobinfo.ResourceList {
 
-			timeEstimation := convertToMinutes(resource.TimeEstimation)
-			r := payload.ResourceData{
-				ID:                 resource.ID,
-				Name:               resource.Name,
-				Region:             resource.Region,
-				TimeEstimation:     timeEstimation,
-				ServiceType:        resource.ServiceType,
-				Action:             resource.Action,
-				StartTime:          resource.StartTime,
-				Day:                resource.Day,
-				AccuracyPercentage: resource.AccuracyPercentage,
-			}
-			resources = append(resources, r)
-		}
+	// 		timeEstimation := convertToMinutes(resource.TimeEstimation)
+	// 		r := payload.ResourceData{
+	// 			ID:                 resource.ID,
+	// 			Name:               resource.Name,
+	// 			Region:             resource.Region,
+	// 			TimeEstimation:     timeEstimation,
+	// 			ServiceType:        resource.ServiceType,
+	// 			Action:             resource.Action,
+	// 			StartTime:          resource.StartTime,
+	// 			Day:                resource.Day,
+	// 			AccuracyPercentage: resource.AccuracyPercentage,
+	// 		}
+	// 		resources = append(resources, r)
+	// 	}
 
-		s := strconv.Itoa(jobID)
-		result := payload.TimeEstimationResult{
-			ID:                  s,
-			TotalTimeEstimation: totalTime,
-			Resources:           resources,
-		}
+	// 	s := strconv.Itoa(jobID)
+	// 	result := payload.TimeEstimationResult{
+	// 		ID:                  s,
+	// 		TotalTimeEstimation: totalTime,
+	// 		Resources:           resources,
+	// 	}
 
-		byteArray, err := json.Marshal(result)
-		if err != nil {
-			fmt.Println(err)
-		}
+	// 	byteArray, err := json.Marshal(result)
+	// 	if err != nil {
+	// 		fmt.Println(err)
+	// 	}
 
-		fmt.Println(string(byteArray))
+	// 	fmt.Println(string(byteArray))
 
-		c.JSON(http.StatusOK, gin.H{
-			"JobID":               id,
-			"TotalTimeEstimation": totalTime,
-			"Resources":           resources,
-		})
+	// 	c.JSON(http.StatusOK, gin.H{
+	// 		"JobID":               id,
+	// 		"TotalTimeEstimation": totalTime,
+	// 		"Resources":           resources,
+	// 	})
+	// } else {
+	// 	c.JSON(http.StatusNotFound, map[string]string{
+	// 		"JobID":   id,
+	// 		"message": "JobId not found",
+	// 	})
+	// }
+	if _, exist := payload.JobInfoMap[jobID]; exist {
+		o := fetchTimeEstimation(jobID)
+		c.JSON(http.StatusOK, o)
 	} else {
 		c.JSON(http.StatusNotFound, map[string]string{
 			"JobID":   id,
 			"message": "JobId not found",
 		})
 	}
+}
+
+func fetchTimeEstimation(jobID int) map[string]interface{} {
+	jobinfo := payload.JobInfoMap[jobID]
+	id := strconv.Itoa(jobID)
+
+	totalTime := convertToMinutes(jobinfo.TotalTimeEstimation)
+
+	//Print Estimation details in table format
+	printer := tableprinter.New(os.Stdout)
+
+	// Optionally, customize the table, import of the underline 'tablewriter' package is required for that.
+	printer.BorderTop, printer.BorderBottom, printer.BorderLeft, printer.BorderRight = true, true, true, true
+	printer.CenterSeparator = "│"
+	printer.ColumnSeparator = "│"
+	printer.RowSeparator = "─"
+	printer.HeaderBgColor = tablewriter.BgBlackColor
+	printer.HeaderFgColor = tablewriter.FgGreenColor
+
+	printer.Print(helpers.GetTable(jobinfo.ResourceList))
+	fmt.Println("\nTotal Estimated Time: ", totalTime)
+
+	resources := make([]payload.ResourceData, 0)
+
+	for _, resource := range jobinfo.ResourceList {
+
+		timeEstimation := convertToMinutes(resource.TimeEstimation)
+		r := payload.ResourceData{
+			ID:                 resource.ID,
+			Name:               resource.Name,
+			Region:             resource.Region,
+			TimeEstimation:     timeEstimation,
+			ServiceType:        resource.ServiceType,
+			Action:             resource.Action,
+			StartTime:          resource.StartTime,
+			Day:                resource.Day,
+			AccuracyPercentage: resource.AccuracyPercentage,
+		}
+		resources = append(resources, r)
+	}
+
+	s := strconv.Itoa(jobID)
+	result := payload.TimeEstimationResult{
+		ID:                  s,
+		TotalTimeEstimation: totalTime,
+		Resources:           resources,
+	}
+
+	byteArray, err := json.Marshal(result)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Println(string(byteArray))
+
+	// c.JSON(http.StatusOK, gin.H{
+	// 	"JobID":               id,
+	// 	"TotalTimeEstimation": totalTime,
+	// 	"Resources":           resources,
+	// })
+	return map[string]interface{}{
+		"JobID":               id,
+		"TotalTimeEstimation": totalTime,
+		"Resources":           resources,
+	}
+
 }
 
 func convertToMinutes(totalSecs int64) string {
