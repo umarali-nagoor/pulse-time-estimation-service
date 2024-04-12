@@ -8,7 +8,7 @@ Use Pulse service - to estimate the time it takes to provision your Terraform te
 
 This repository contains the following component:
 * Pulse REST API server
-* Pulse ??? 
+* Pulse ???? 
 
 The Pulse service integrates with the following:
 * Time-estimation data store (fallback db for estimation data - in MongoDB)
