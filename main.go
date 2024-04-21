@@ -28,6 +28,10 @@ func main() {
 
 	v1.GET("/predictor/:id", handler.GetTimeEstimationData)
 
+	v1.GET("/predictnow", handler.PredictProvisionTimeNow)
+
+	v1.GET("/predictandgetsuggestion", handler.PredictAndGetSuggestion)
+
 	v1.DELETE("/predictor/:id", handler.DeleteJob)
 
 	v1.GET("/predictor/:id/status", handler.GetJobStatus)

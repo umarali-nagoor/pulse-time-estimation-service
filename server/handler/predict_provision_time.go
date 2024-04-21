@@ -51,6 +51,48 @@ func GetJobStatus(context *gin.Context) {
 // PredictProvisionTime ...
 func PredictProvisionTime(context *gin.Context) {
 	// Read the Request Body content
+	// var bodyBytes []byte
+	// if context.Request.Body != nil {
+	// 	bodyBytes, _ = ioutil.ReadAll(context.Request.Body)
+	// }
+
+	// // Restore the io.ReadCloser to its original state
+	// context.Request.Body = ioutil.NopCloser(bytes.NewBuffer(bodyBytes))
+
+	// buf := make([]byte, bufsize)
+	// num, _ := context.Request.Body.Read(buf)
+	// reqBody := string(buf[0:num])
+
+	// in := []byte(reqBody)
+	// var data map[string]interface{}
+	// if err := json.Unmarshal(in, &data); err != nil {
+	// 	panic(err)
+	// }
+
+	// //Crerate JobID randomly
+	// jobID := createJobID(1, 100)
+	// fmt.Println("Generated new JobId : ", jobID)
+
+	// job := new(payload.Job)
+	// job.ResourceList = make([]payload.ResourceInfo, 0)
+	// job.ResourceDependencyMap = make(map[string][]string, 0)
+	// job.TotalTimeEstimation = 0
+	// job.SetState(payload.INPRPGRESS)
+
+	// payload.JobInfoMap[jobID] = *job
+
+	// jobCreationResponse(context, jobID)
+
+	// fmt.Println("********* Received plan json : ", data)
+
+	data, jobID := registerJob(context)
+	jobCreationResponse(context, jobID)
+	go processRequest(context, data, jobID)
+
+}
+
+func registerJob(context *gin.Context) (data map[string]interface{}, jobID int) {
+	// Read the Request Body content
 	var bodyBytes []byte
 	if context.Request.Body != nil {
 		bodyBytes, _ = ioutil.ReadAll(context.Request.Body)
@@ -64,13 +106,13 @@ func PredictProvisionTime(context *gin.Context) {
 	reqBody := string(buf[0:num])
 
 	in := []byte(reqBody)
-	var data map[string]interface{}
+	//var data map[string]interface{}
 	if err := json.Unmarshal(in, &data); err != nil {
 		panic(err)
 	}
 
-	//Crerate JobID randomly
-	jobID := createJobID(1, 100)
+	// Crerate JobID randomly
+	jobID = createJobID(1, 100)
 	fmt.Println("Generated new JobId : ", jobID)
 
 	job := new(payload.Job)
@@ -81,11 +123,34 @@ func PredictProvisionTime(context *gin.Context) {
 
 	payload.JobInfoMap[jobID] = *job
 
-	jobCreationResponse(context, jobID)
-
 	fmt.Println("********* Received plan json : ", data)
-	go processRequest(context, data, jobID)
 
+	return
+
+}
+
+func PredictProvisionTimeNow(context *gin.Context) {
+	data, jobID := registerJob(context)
+	processRequest(context, data, jobID)
+	output := fetchTimeEstimation(jobID)
+
+	context.JSON(http.StatusOK, output)
+
+}
+
+func PredictAndGetSuggestion(context *gin.Context) {
+	data, jobID := registerJob(context)
+	processRequest(context, data, jobID)
+	resp1 := fetchTimeEstimation(jobID)
+	resp2 := `{"resource": {"aws_instance": {"example": {"instance_type": "t2.micro","ami": "ami-abc123"}}}}`
+
+	resp := map[string]interface{}{
+		"timeEstimationOuput": resp1,
+		"alternateSuggestion": resp2,
+	}
+
+	// context.Data(http.StatusOK, "application/json", []byte(resp))
+	context.JSON(http.StatusOK, resp)
 }
 
 func jobCreationResponse(context *gin.Context, jobID int) {
