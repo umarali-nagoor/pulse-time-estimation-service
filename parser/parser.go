@@ -18,7 +18,7 @@ func GetResourceList(input map[string]interface{}) []string {
 	return resourceList
 }
 
-//Returns provider info like region etc
+// Returns provider info like region etc
 func GetProviderInfo(input map[string]interface{}) map[string]map[string]interface{} {
 
 	/*******************************
@@ -45,19 +45,21 @@ func GetProviderInfo(input map[string]interface{}) map[string]map[string]interfa
 		for provider, _ := range providerConfigMap {
 			if provider == "ibm" {
 				ibmConfigMap := providerConfigMap["ibm"].(map[string]interface{})
-				providerInfo := ibmConfigMap["expressions"].(map[string]interface{})
-				for key, value := range providerInfo {
-					if key == "region" {
-						configuredRegion := value.(map[string]interface{})
-						//iterate over all the argument values
-						for k, v := range configuredRegion {
-							if k == "constant_value" {
-								ArgumentValuesMap[key] = v
+				if _, ok := ibmConfigMap["expressions"]; ok {
+					providerInfo := ibmConfigMap["expressions"].(map[string]interface{})
+					for key, value := range providerInfo {
+						if key == "region" {
+							configuredRegion := value.(map[string]interface{})
+							//iterate over all the argument values
+							for k, v := range configuredRegion {
+								if k == "constant_value" {
+									ArgumentValuesMap[key] = v
+								}
 							}
 						}
 					}
+					providerInfoMap["ibm"] = ArgumentValuesMap
 				}
-				providerInfoMap["ibm"] = ArgumentValuesMap
 			}
 		}
 	}

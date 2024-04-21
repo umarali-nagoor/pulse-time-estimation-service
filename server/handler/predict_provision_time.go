@@ -142,20 +142,11 @@ func PredictAndGetSuggestion(context *gin.Context) {
 	data, jobID := registerJob(context)
 	processRequest(context, data, jobID)
 	resp1 := fetchTimeEstimation(jobID)
-	resp2 := `{
-		"resource": {
-		  "aws_instance": {
-			"example": {
-			  "instance_type": "t2.micro",
-			  "ami": "ami-abc123"
-			}
-		  }
-		}
-	  }`
+	resp2 := `{"resource": {"aws_instance": {"example": {"instance_type": "t2.micro","ami": "ami-abc123"}}}}`
 
 	resp := map[string]interface{}{
 		"timeEstimationOuput": resp1,
-		"suggestions":         resp2,
+		"alternateSuggestion": resp2,
 	}
 
 	// context.Data(http.StatusOK, "application/json", []byte(resp))

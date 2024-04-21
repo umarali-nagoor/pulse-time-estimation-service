@@ -1,1 +1,4 @@
 pulse-api
+.terraform*
+_*
+hello.tf
