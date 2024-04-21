@@ -1,5 +1,6 @@
 import os
 import sys
+import time
 import requests
  
 # total arguments
@@ -18,6 +19,13 @@ if sys.argv[1] == "deploy":
     job_id = json_resp['jobID']
     yes = input("Do you want to get time estimation details?(yes, why not/nah, I'm good)\n")
     if yes == "yes, why not" or yes == "yes" or yes == "y":
+         while True:
+             url = 'http://localhost:8080/api/v1/predictor/' + str(job_id) + '/status'
+             response = requests.get(url)
+             json_resp = response.json()
+             if json_resp['Status'] == "COMPLETED":
+                 break
+             time.sleep(1)
          url = 'http://localhost:8080/api/v1/predictor/' + str(job_id)
          response = requests.get(url)
          print("Time estimation response\n-------------------------------")
